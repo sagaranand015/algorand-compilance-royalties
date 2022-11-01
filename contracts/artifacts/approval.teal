@@ -4,25 +4,29 @@ bytecblock 0x151f7c75 0x656d697373696f6e5f706172616d65746572 0x656d697373696f6e5
 txn NumAppArgs
 intc_0 // 0
 ==
-bnz main_l10
+bnz main_l12
 txna ApplicationArgs 0
 pushbytes 0x74b9038d // "get_emission_rule()(string,uint64,uint64)"
 ==
-bnz main_l9
+bnz main_l11
 txna ApplicationArgs 0
 pushbytes 0x0ef9e652 // "set_emission_rule(string,uint64,uint64)bool"
 ==
-bnz main_l8
+bnz main_l10
 txna ApplicationArgs 0
 pushbytes 0x17944db6 // "is_business_compliant(string,uint64)bool"
 ==
-bnz main_l7
+bnz main_l9
 txna ApplicationArgs 0
-pushbytes 0x116268e1 // "issue_compliance_nft(address)uint64"
+pushbytes 0xb43dd9b4 // "create_compliance_nft(address)uint64"
 ==
-bnz main_l6
+bnz main_l8
+txna ApplicationArgs 0
+pushbytes 0xb60cb494 // "allocate_compliance_nft_to_business(address,uint64)uint64"
+==
+bnz main_l7
 err
-main_l6:
+main_l7:
 txn OnCompletion
 intc_0 // NoOp
 ==
@@ -32,7 +36,32 @@ intc_0 // 0
 &&
 assert
 txna ApplicationArgs 1
-callsub issuecompliancenft_9
+store 20
+txna ApplicationArgs 2
+btoi
+store 21
+load 20
+load 21
+callsub allocatecompliancenfttobusiness_11
+store 22
+bytec_0 // 0x151f7c75
+load 22
+itob
+concat
+log
+intc_1 // 1
+return
+main_l8:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+txna ApplicationArgs 1
+callsub createcompliancenft_10
 store 18
 bytec_0 // 0x151f7c75
 load 18
@@ -41,7 +70,7 @@ concat
 log
 intc_1 // 1
 return
-main_l7:
+main_l9:
 txn OnCompletion
 intc_0 // NoOp
 ==
@@ -68,7 +97,7 @@ concat
 log
 intc_1 // 1
 return
-main_l8:
+main_l10:
 txn OnCompletion
 intc_0 // NoOp
 ==
@@ -99,7 +128,7 @@ concat
 log
 intc_1 // 1
 return
-main_l9:
+main_l11:
 txn OnCompletion
 intc_0 // NoOp
 ==
@@ -116,21 +145,21 @@ concat
 log
 intc_1 // 1
 return
-main_l10:
+main_l12:
 txn OnCompletion
 intc_0 // NoOp
 ==
-bnz main_l16
+bnz main_l18
 txn OnCompletion
 intc_1 // OptIn
 ==
-bnz main_l15
+bnz main_l17
 txn OnCompletion
 intc_2 // UpdateApplication
 ==
-bnz main_l14
+bnz main_l16
 err
-main_l14:
+main_l16:
 txn ApplicationID
 intc_0 // 0
 !=
@@ -138,7 +167,7 @@ assert
 callsub update_2
 intc_1 // 1
 return
-main_l15:
+main_l17:
 txn ApplicationID
 intc_0 // 0
 !=
@@ -146,7 +175,7 @@ assert
 callsub optin_3
 intc_1 // 1
 return
-main_l16:
+main_l18:
 txn ApplicationID
 intc_0 // 0
 ==
@@ -271,9 +300,9 @@ isbusinesscompliant_6_l3:
 load 17
 retsub
 
-// create_compliance_nft
-createcompliancenft_7:
-store 20
+// create_compliance_nft_internal
+createcompliancenftinternal_7:
+store 24
 itxn_begin
 intc_0 // 0
 itxn_field Fee
@@ -283,21 +312,19 @@ intc_1 // 1
 itxn_field ConfigAssetTotal
 intc_0 // 0
 itxn_field ConfigAssetDecimals
-intc_1 // 1
-itxn_field ConfigAssetDefaultFrozen
 pushbytes 0x532d415341 // "S-ASA"
 itxn_field ConfigAssetUnitName
 pushbytes 0x534d4152542d415341 // "SMART-ASA"
 itxn_field ConfigAssetName
 pushbytes 0x687474703a2f2f7377617374696b67756964652e636f6d3f71756572793d6173612d64656d6f3031 // "http://swastikguide.com?query=asa-demo01"
 itxn_field ConfigAssetURL
-load 20
+global CurrentApplicationAddress
 itxn_field ConfigAssetManager
-load 20
+global CurrentApplicationAddress
 itxn_field ConfigAssetReserve
-load 20
+global CurrentApplicationAddress
 itxn_field ConfigAssetFreeze
-load 20
+global CurrentApplicationAddress
 itxn_field ConfigAssetClawback
 itxn_submit
 itxn CreatedAssetID
@@ -305,13 +332,13 @@ retsub
 
 // app_opt_into_asset
 appoptintoasset_8:
-store 21
+store 25
 itxn_begin
 intc_0 // 0
 itxn_field Fee
 intc_2 // axfer
 itxn_field TypeEnum
-load 21
+load 25
 itxn_field XferAsset
 intc_1 // 1
 itxn_field AssetAmount
@@ -322,11 +349,39 @@ itxn_field AssetReceiver
 itxn_submit
 retsub
 
-// issue_compliance_nft
-issuecompliancenft_9:
-callsub createcompliancenft_7
+// transfer_compliance_nft_to_business
+transfercompliancenfttobusiness_9:
+store 27
+store 26
+itxn_begin
+intc_0 // 0
+itxn_field Fee
+intc_2 // axfer
+itxn_field TypeEnum
+load 27
+itxn_field XferAsset
+intc_1 // 1
+itxn_field AssetAmount
+global CurrentApplicationAddress
+itxn_field Sender
+load 26
+itxn_field AssetReceiver
+itxn_submit
+retsub
+
+// create_compliance_nft
+createcompliancenft_10:
+callsub createcompliancenftinternal_7
 store 19
 load 19
 callsub appoptintoasset_8
 load 19
+retsub
+
+// allocate_compliance_nft_to_business
+allocatecompliancenfttobusiness_11:
+store 23
+load 23
+callsub transfercompliancenfttobusiness_9
+load 23
 retsub

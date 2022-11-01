@@ -48,11 +48,28 @@
             "desc": "Returns true/false based on whether the business is compliant to the emissions value or not"
         },
         {
-            "name": "issue_compliance_nft",
+            "name": "create_compliance_nft",
             "args": [
                 {
                     "type": "address",
                     "name": "business_address"
+                }
+            ],
+            "returns": {
+                "type": "uint64"
+            },
+            "desc": "Creates the compliance NFT for the business via the Algorand SC"
+        },
+        {
+            "name": "allocate_compliance_nft_to_business",
+            "args": [
+                {
+                    "type": "address",
+                    "name": "business_address"
+                },
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
                 }
             ],
             "returns": {

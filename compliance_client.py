@@ -1,3 +1,4 @@
+import json
 from algosdk.mnemonic import *
 from algosdk.future import transaction
 from algosdk.atomic_transaction_composer import *
@@ -126,7 +127,7 @@ class ComplianceClient:
         print("======== res.tx_value is: ", res.tx_info)
         return res
 
-    def mint_compliance_token(self, business_address: str):
+    def create_compliance_token(self, business_address: str):
         """
         This functions mints the compliance NFT with the business address as the owner of the NFT,
         for being in compliance with the emission control set by the regulator
@@ -136,7 +137,7 @@ class ComplianceClient:
         sp.fee = 5000  # cover this and 1 inner transaction
 
         res = self._algo_app.call(
-            ComplianceContract.issue_compliance_nft,
+            ComplianceContract.create_compliance_nft,
             business_address=business_address,
             suggested_params=sp,
             accounts=[business_address],
@@ -148,27 +149,85 @@ class ComplianceClient:
         print("======== res.tx_value is: ", res.tx_info)
         return res
 
+    def transfer_compliance_token_to_business(self, business_address: str, asset_id: int):
+        """
+        This functions mints the compliance NFT with the business address as the owner of the NFT,
+        for being in compliance with the emission control set by the regulator
+        """
+        sp = self._algo_client.suggested_params()
+        sp.flat_fee = True
+        sp.fee = 5000  # cover this and 1 inner transaction
+
+        res = self._algo_app.call(
+            ComplianceContract.allocate_compliance_nft_to_business,
+            business_address=business_address,
+            asset_id=asset_id,
+            suggested_params=sp,
+            accounts=[business_address],
+            foreign_assets=[asset_id]
+        )
+        print("======== res is: ", res)
+        print("======== res.return_value is: ", res.return_value)
+        print("======== res.raw_value is: ", res.raw_value)
+        print("======== res.tx_id is: ", res.tx_id)
+        print("======== res.tx_value is: ", res.tx_info)
+        return res
+
+    #   Utility function used to print asset holding for account and assetid
+    def print_asset_holding(self, account, asset_id):
+        # note: if you have an indexer instance available it is easier to just use this
+        # response = myindexer.accounts(asset_id = assetid)
+        # then loop thru the accounts returned and match the account you are looking for
+        account_info = self._algo_client.account_info(account)
+        idx = 0
+        # print("========= account info: ", account_info)
+        for my_account_info in account_info['assets']:
+            scrutinized_asset = account_info['assets'][idx]
+            idx = idx + 1
+            # print("========= asset info: ", account_info['assets'])
+            print("========= created asset info: ", account_info['created-assets'])
+            if scrutinized_asset['asset-id'] == asset_id:
+                # print(json.dumps(scrutinized_asset))
+                # print("Asset ID: {}".format(scrutinized_asset['asset-id']))
+                # print(json.dumps(scrutinized_asset, indent=4))
+                break
+
 
 if __name__ == "__main__":
     print("Starting deploy of the Compliance App(SC) on Algorand...")
-    # appId: 
-    c = ComplianceClient()
+    # appId:120023262
+    c = ComplianceClient(120023262)
     c.get_application_state()
     c.get_application_address()
-    c.get_emissions_rule()
-    print("================ CHANGE =====================")
-    c.set_emissions_rule()
-    print("================ CHANGE =====================")
-    c.get_emissions_rule()
-    print("================ CHANGE =====================")
-    try:
-        c.is_business_compliant()
-    except Exception as e:
-        print("============ EXCEPTION: ", e)
+    # c.get_emissions_rule()
+    # print("================ CHANGE =====================")
+    # c.set_emissions_rule()
+    # print("================ CHANGE =====================")
+    # c.get_emissions_rule()
+    # print("================ CHANGE =====================")
+    # try:
+    #     c.is_business_compliant()
+    # except Exception as e:
+    #     print("============ EXCEPTION: ", e)
+    #
+    # try:
+    #     c.create_compliance_token("SZ3K22H6MZ3A3ORYIVTAYMQMMBWVFOMJWXR3QCODNMJBQRIKBXN5PXX6AI")
+    # except Exception as e:
+    #     print("========= EXCEPTION IN CREATING COMPLIANCE NFT...", e)
+    #     import traceback
+    #     traceback.print_exc()
 
     try:
-        c.mint_compliance_token("SZ3K22H6MZ3A3ORYIVTAYMQMMBWVFOMJWXR3QCODNMJBQRIKBXN5PXX6AI")
+        c.transfer_compliance_token_to_business("SZ3K22H6MZ3A3ORYIVTAYMQMMBWVFOMJWXR3QCODNMJBQRIKBXN5PXX6AI", 120023374)
     except Exception as e:
-        print("========= EXCEPTION IN MINTING...", e)
+        print("========= EXCEPTION IN TRANSFERRING TO BUSINESS...", e)
         import traceback
         traceback.print_exc()
+
+    # try:
+    #     c.print_asset_holding("SZ3K22H6MZ3A3ORYIVTAYMQMMBWVFOMJWXR3QCODNMJBQRIKBXN5PXX6AI", 120019312)
+    # except Exception as e:
+    #     print("========= EXCEPTION IN GETTING ACCOUNT INFO...", e)
+    #     import traceback
+    #     traceback.print_exc()
+

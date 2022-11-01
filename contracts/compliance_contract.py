@@ -14,7 +14,7 @@ SMART_ASA_APP_BINDING = "http://swastikguide.com?query=asa-demo01"
 
 UNDERLYING_ASA_TOTAL = Int(2**64 - 1)
 UNDERLYING_ASA_DECIMALS = Int(0)
-UNDERLYING_ASA_DEFAULT_FROZEN = Int(1)
+UNDERLYING_ASA_DEFAULT_FROZEN = Int(0)
 UNDERLYING_ASA_UNIT_NAME = Bytes("S-ASA")
 UNDERLYING_ASA_NAME = Bytes("SMART-ASA")
 UNDERLYING_ASA_URL = Bytes(SMART_ASA_APP_BINDING)
@@ -116,7 +116,7 @@ class ComplianceContract(Application):
         )
 
     @internal(TealType.uint64)
-    def create_compliance_nft(self, business_address: Expr):
+    def create_compliance_nft_internal(self, business_address: Expr):
         return Seq(
             InnerTxnBuilder.Begin(),
             InnerTxnBuilder.SetFields(
@@ -125,18 +125,17 @@ class ComplianceContract(Application):
                     TxnField.type_enum: TxnType.AssetConfig,
                     TxnField.config_asset_total: Int(1),
                     TxnField.config_asset_decimals: UNDERLYING_ASA_DECIMALS,
-                    TxnField.config_asset_default_frozen: UNDERLYING_ASA_DEFAULT_FROZEN,
                     TxnField.config_asset_unit_name: UNDERLYING_ASA_UNIT_NAME,
                     TxnField.config_asset_name: UNDERLYING_ASA_NAME,
                     TxnField.config_asset_url: UNDERLYING_ASA_URL,
-                    TxnField.config_asset_manager: business_address,
-                    TxnField.config_asset_reserve: business_address,
-                    TxnField.config_asset_freeze: business_address,
-                    TxnField.config_asset_clawback: business_address,
-                    # TxnField.config_asset_manager: UNDERLYING_ASA_MANAGER_ADDR,
-                    # TxnField.config_asset_reserve: UNDERLYING_ASA_RESERVE_ADDR,
-                    # TxnField.config_asset_freeze: UNDERLYING_ASA_FREEZE_ADDR,
-                    # TxnField.config_asset_clawback: UNDERLYING_ASA_CLAWBACK_ADDR,
+                    # TxnField.config_asset_manager: business_address,
+                    # TxnField.config_asset_reserve: business_address,
+                    # TxnField.config_asset_freeze: business_address,
+                    # TxnField.config_asset_clawback: business_address,
+                    TxnField.config_asset_manager: UNDERLYING_ASA_MANAGER_ADDR,
+                    TxnField.config_asset_reserve: UNDERLYING_ASA_RESERVE_ADDR,
+                    TxnField.config_asset_freeze: UNDERLYING_ASA_FREEZE_ADDR,
+                    TxnField.config_asset_clawback: UNDERLYING_ASA_CLAWBACK_ADDR,
                 }
             ),
             InnerTxnBuilder.Submit(),
@@ -161,16 +160,46 @@ class ComplianceContract(Application):
             InnerTxnBuilder.Submit(),
         )
 
+    @internal(TealType.none)
+    def transfer_compliance_nft_to_business(self, business_address: Expr, asset_id: Expr):
+        return Seq(
+            InnerTxnBuilder.Begin(),
+            InnerTxnBuilder.SetFields(
+                {
+                    TxnField.fee: Int(0),
+                    TxnField.type_enum: TxnType.AssetTransfer,
+                    TxnField.xfer_asset: asset_id,
+                    TxnField.asset_amount: Int(1),
+                    TxnField.sender: Global.current_application_address(),
+                    # TxnField.asset_sender: Global.current_application_address(),
+                    TxnField.asset_receiver: business_address,
+                }
+            ),
+            InnerTxnBuilder.Submit(),
+        )
+
     @external
-    def issue_compliance_nft(
+    def create_compliance_nft(
         self, business_address: abi.Address, *, output: abi.Uint64
     ):
         """
         Creates the compliance NFT for the business via the Algorand SC
         """
         return Seq(
-            (asset_id := abi.Uint64()).set(self.create_compliance_nft(business_address.get())),
+            (asset_id := abi.Uint64()).set(self.create_compliance_nft_internal(business_address.get())),
             self.app_opt_into_asset(asset_id.get()),
+            output.set(asset_id)
+        )
+
+    @external
+    def allocate_compliance_nft_to_business(
+            self, business_address: abi.Address, asset_id: abi.Uint64, *, output: abi.Uint64
+    ):
+        """
+        Creates the compliance NFT for the business via the Algorand SC
+        """
+        return Seq(
+            self.transfer_compliance_nft_to_business(business_address.get(), asset_id.get()),
             output.set(asset_id)
         )
 
