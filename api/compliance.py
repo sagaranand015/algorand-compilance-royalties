@@ -1,14 +1,18 @@
 from http import HTTPStatus
 from flask import jsonify, request
 
-from utils.utils import check_api_authorization, get_all_regulator_data
-from utils.constants import REGULATOR_FILE
+from utils.utils import (
+    check_api_authorization,
+    get_all_regulator_data,
+    get_address_from_decoded_token,
+)
 from compliance_client import ComplianceClient
 
 
-def check_business_compliance():
+def mint_compliance_nft():
     """
-    Checks whether the business is compliant to an emission control or not
+    Mints the compliance NFT for the given business address.
+    Should be called with the business Authorization header
     """
     try:
         auth_header = request.headers.get("Authorization")
@@ -22,7 +26,6 @@ def check_business_compliance():
         req = request.get_json()
         try:
             emission_param = req["emission_param"]
-            emission_value = req["emission_value"]
         except KeyError as e:
             return (
                 jsonify(
@@ -36,13 +39,11 @@ def check_business_compliance():
 
         # get appId for which we need to check the compliance
         app_id = None
-        param = ""
         all_data = get_all_regulator_data()
         for k, v in all_data.items():
             for val in v:
                 if val["data"]["emission_param"] == emission_param:
                     app_id = val["app_id"]
-                    param = f"{val['data']['emission_param']}:{val['data']['emission_desc']}"
 
         if not app_id:
             return (
@@ -54,22 +55,17 @@ def check_business_compliance():
                 HTTPStatus.BAD_REQUEST,
             )
 
-        print(
-            "===== appId being used for compliance: ",
-            app_id,
-            param,
-            emission_value,
-        )
         comp_client = ComplianceClient(app_id)
-        complient_resp = comp_client.is_business_compliant(
-            param, emission_value
-        )
+        biz_address = get_address_from_decoded_token(auth_token)
+        compliance_nft_res = comp_client.create_compliance_token(biz_address)
+        asset_id = compliance_nft_res.return_value
+
         return (
             jsonify(
                 dict(
                     status=True,
                     message="All Good!",
-                    is_compliant=complient_resp.return_value,
+                    nft_id=asset_id,
                 )
             ),
             HTTPStatus.OK,

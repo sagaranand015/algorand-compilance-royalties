@@ -19,6 +19,41 @@ def _create_get_emission_control(app_id: int = 0):
     return ComplianceClient(app_id)
 
 
+def get_all_emission_controls():
+    """
+    Get all Emission Controls for the regulator given
+    """
+    try:
+        auth_header = request.headers.get("Authorization")
+        auth_validated, auth_token = check_api_authorization(auth_header)
+        if not auth_validated:
+            return (
+                jsonify(dict(status=False, message="Invalid Auth")),
+                HTTPStatus.BAD_REQUEST,
+            )
+        reg_addr = get_address_from_decoded_token(auth_token)
+        all_reg_data = get_regulator_data_from_storage(reg_addr)
+        all_apps = []
+        for d in all_reg_data:
+            all_apps.append({
+                'app_id': d['app_id'],
+                'emission_param': d['data']['emission_param'],
+                'emission_desc': d['data']['emission_desc'],
+                'emission_max': d['data']['emission_max'],
+            })
+        return (
+            jsonify(dict(status=True, message="All Good!", controls=all_apps)),
+            HTTPStatus.OK,
+        )
+    except Exception as e:
+        return (
+            jsonify(
+                jsonify(dict(status=False, message=str(e))),
+            ),
+            HTTPStatus.BAD_GATEWAY,
+        )
+
+
 def create_emission_control():
     """
     To create an app keeping the regulator at the center and creating an emission control
@@ -71,7 +106,9 @@ def create_emission_control():
 
         final_app_id = comp_client.get_app_id()
         final_app_addr = comp_client.get_app_address()
-        set_txn_res = comp_client.set_emissions_rule(f"{emission_param}:{emission_desc}", int(emission_max))
+        set_txn_res = comp_client.set_emissions_rule(
+            f"{emission_param}:{emission_desc}", int(emission_max)
+        )
         return (
             jsonify(
                 dict(

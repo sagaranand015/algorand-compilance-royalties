@@ -71,6 +71,11 @@ class ComplianceClient:
         )
 
     def get_application_state(self):
+        app_state = self._algo_client.dele
+        print(f"Current app state:{app_state}")
+        return app_state
+
+    def get_application_state(self):
         app_state = self._algo_app.get_application_state()
         print(f"Current app state:{app_state}")
         return app_state

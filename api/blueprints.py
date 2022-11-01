@@ -3,8 +3,9 @@ from flask import Blueprint
 
 from .health import get_health_status
 from .user import new_user_registration
-from .regulator import create_emission_control
+from .regulator import create_emission_control, get_all_emission_controls
 from .business import check_business_compliance
+from .compliance import mint_compliance_nft
 
 
 """
@@ -25,6 +26,10 @@ def get_regulator_blueprint():
     @regulator_blueprint.route("/control", methods=["POST"])
     def _create_emission_control():
         return create_emission_control()
+
+    @regulator_blueprint.route("/controls", methods=["GET"])
+    def _get_all_controls():
+        return get_all_emission_controls()
 
     return regulator_blueprint
 
@@ -49,6 +54,24 @@ def get_business_blueprint():
         return check_business_compliance()
 
     return biz_blueprint
+
+
+"""
+BLUEPRINTS FOR COMPLIANCE API ENDPOINTS
+"""
+
+
+def get_compliance_blueprint():
+    """
+    Returns the blueprints for all compliance related endpoints
+    """
+    com_blueprint = Blueprint("compliance", __name__)
+
+    @com_blueprint.route("/mint", methods=["POST"])
+    def _mint_compliance():
+        return mint_compliance_nft()
+
+    return com_blueprint
 
 
 """
@@ -77,4 +100,5 @@ def get_all_blueprints() -> typing.List[typing.Tuple[Blueprint, str]]:
     ret.append((get_health_blueprint(), "/server"))
     ret.append((get_regulator_blueprint(), "/regulator"))
     ret.append((get_business_blueprint(), "/business"))
+    ret.append((get_compliance_blueprint(), "/compliance"))
     return ret
