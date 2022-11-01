@@ -53,9 +53,6 @@ def create_emission_control():
         reg_addr = get_address_from_decoded_token(auth_token)
         reg_data = get_regulator_data_from_storage(reg_addr)
         is_new_emission = True
-
-        print("========== reg data is: ", reg_data)
-
         if reg_data is not None:
             for d in reg_data:
                 if d["data"]["emission_param"] == emission_param:
@@ -72,9 +69,10 @@ def create_emission_control():
                 "data": req,
             }
             update_regulator_data_in_storage(reg_addr, reg_data)
-            
+
         final_app_id = comp_client.get_app_id()
         final_app_addr = comp_client.get_app_address()
+        set_txn_res = comp_client.set_emissions_rule(f"{emission_param}:{emission_desc}", int(emission_max))
         return (
             jsonify(
                 dict(
@@ -82,6 +80,7 @@ def create_emission_control():
                     message="Created the Emission Control",
                     app_id=final_app_id,
                     app_address=final_app_addr,
+                    app_set_txn=set_txn_res.tx_id,
                 )
             ),
             HTTPStatus.OK,

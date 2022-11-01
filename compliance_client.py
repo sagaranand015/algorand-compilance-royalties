@@ -96,15 +96,15 @@ class ComplianceClient:
         print("======== res.tx_value is: ", res.tx_info)
         return res
 
-    def set_emissions_rule(self):
+    def set_emissions_rule(self, emission_param: str, emission_max: int):
         sp = self._algo_client.suggested_params()
         sp.flat_fee = True
         sp.fee = 2000  # cover this and 1 inner transaction
 
         res = self._algo_app.call(
             ComplianceContract.set_emission_rule,
-            emission_parameter="Co2 Emission Level",
-            emission_max=100,
+            emission_parameter=emission_param,
+            emission_max=emission_max,
             emission_min=0,
             suggested_params=sp,
         )
