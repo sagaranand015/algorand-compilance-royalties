@@ -27,6 +27,12 @@ class ComplianceClient:
 
         self.build_client(app_id)
 
+    def get_app_id(self):
+        return self._app_id
+
+    def get_app_address(self):
+        return self._app_address
+
     def build_algo_client(self):
         algod_client = algod.AlgodClient(ALGOD_TOKEN, ALGOD_HOST)
         return algod_client
@@ -43,7 +49,7 @@ class ComplianceClient:
             app_id, app_addr, _ = app_client.create()
             print(f"Created Compliance app at {app_id} {app_addr}")
             self._app_id = app_id
-            app_client.fund(2 * consts.algo)
+            app_client.fund(1 * consts.algo)
             print("Funded app")
             app_client.opt_in()
             print("Opted in")

@@ -3,24 +3,47 @@ from flask import Blueprint
 
 from .health import get_health_status
 from .user import new_user_registration
+from .regulator import create_emission_control
 
 
 """
-BLUEPRINTS FOR USER API ENDPOINTS
+BLUEPRINTS FOR REGULATOR API ENDPOINTS
 """
 
 
-def get_user_blueprint():
+def get_regulator_blueprint():
     """
-    Returns the blueprints for all user related endpoints
+    Returns the blueprints for all regulator related endpoints
     """
-    user_blueprint = Blueprint("user", __name__)
+    regulator_blueprint = Blueprint("regulator", __name__)
 
-    @user_blueprint.route("/register", methods=["POST"])
+    @regulator_blueprint.route("/register", methods=["POST"])
     def _register_user():
         return new_user_registration()
 
-    return user_blueprint
+    @regulator_blueprint.route("/control", methods=["POST"])
+    def _create_emission_control():
+        return create_emission_control()
+
+    return regulator_blueprint
+
+
+"""
+BLUEPRINTS FOR BUSINESS API ENDPOINTS
+"""
+
+
+def get_business_blueprint():
+    """
+    Returns the blueprints for all business related endpoints
+    """
+    biz_blueprint = Blueprint("business", __name__)
+
+    @biz_blueprint.route("/register", methods=["POST"])
+    def _register_user():
+        return new_user_registration()
+
+    return biz_blueprint
 
 
 """
@@ -47,5 +70,6 @@ def get_all_blueprints() -> typing.List[typing.Tuple[Blueprint, str]]:
     """
     ret = []
     ret.append((get_health_blueprint(), "/server"))
-    ret.append((get_user_blueprint(), "/user"))
+    ret.append((get_regulator_blueprint(), "/regulator"))
+    ret.append((get_business_blueprint(), "/business"))
     return ret

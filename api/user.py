@@ -8,7 +8,7 @@ from utils.constants import AUTH_FILE
 
 def new_user_registration():
     """
-    Givenn the address, returns an API key/token containing the user address and some randomness.
+    Given the address, returns an API key/token containing the user address and some randomness.
     Uses a JWT token behind the scenes.
     """
     try:
