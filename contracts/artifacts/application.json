@@ -1,0 +1,121 @@
+{
+    "hints": {
+        "get_emission_rule": {
+            "structs": {
+                "output": {
+                    "name": "EmissionRuleResult",
+                    "elements": [
+                        [
+                            "emission",
+                            "string"
+                        ],
+                        [
+                            "max",
+                            "uint64"
+                        ],
+                        [
+                            "min",
+                            "uint64"
+                        ]
+                    ]
+                }
+            }
+        }
+    },
+    "source": {
+        "approval": "I3ByYWdtYSB2ZXJzaW9uIDcKaW50Y2Jsb2NrIDAgMSA0CmJ5dGVjYmxvY2sgMHgxNTFmN2M3NSAweDY1NmQ2OTczNzM2OTZmNmU1ZjcwNjE3MjYxNmQ2NTc0NjU3MiAweDY1NmQ2OTczNzM2OTZmNmU1ZjZkNjE3OCAweDY1NmQ2OTczNzM2OTZmNmU1ZjZkNjk2ZSAweDAwCnR4biBOdW1BcHBBcmdzCmludGNfMCAvLyAwCj09CmJueiBtYWluX2wxMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweDc0YjkwMzhkIC8vICJnZXRfZW1pc3Npb25fcnVsZSgpKHN0cmluZyx1aW50NjQsdWludDY0KSIKPT0KYm56IG1haW5fbDkKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMApwdXNoYnl0ZXMgMHgwZWY5ZTY1MiAvLyAic2V0X2VtaXNzaW9uX3J1bGUoc3RyaW5nLHVpbnQ2NCx1aW50NjQpYm9vbCIKPT0KYm56IG1haW5fbDgKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMApwdXNoYnl0ZXMgMHgxNzk0NGRiNiAvLyAiaXNfYnVzaW5lc3NfY29tcGxpYW50KHN0cmluZyx1aW50NjQpYm9vbCIKPT0KYm56IG1haW5fbDcKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMApwdXNoYnl0ZXMgMHgxMTYyNjhlMSAvLyAiaXNzdWVfY29tcGxpYW5jZV9uZnQoYWRkcmVzcyl1aW50NjQiCj09CmJueiBtYWluX2w2CmVycgptYWluX2w2Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmNhbGxzdWIgaXNzdWVjb21wbGlhbmNlbmZ0XzkKc3RvcmUgMTgKYnl0ZWNfMCAvLyAweDE1MWY3Yzc1CmxvYWQgMTgKaXRvYgpjb25jYXQKbG9nCmludGNfMSAvLyAxCnJldHVybgptYWluX2w3Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCnN0b3JlIDEyCnR4bmEgQXBwbGljYXRpb25BcmdzIDIKYnRvaQpzdG9yZSAxMwpsb2FkIDEyCmxvYWQgMTMKY2FsbHN1YiBpc2J1c2luZXNzY29tcGxpYW50XzYKc3RvcmUgMTQKYnl0ZWNfMCAvLyAweDE1MWY3Yzc1CmJ5dGVjIDQgLy8gMHgwMAppbnRjXzAgLy8gMApsb2FkIDE0CnNldGJpdApjb25jYXQKbG9nCmludGNfMSAvLyAxCnJldHVybgptYWluX2w4Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCnN0b3JlIDUKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgpidG9pCnN0b3JlIDYKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMwpidG9pCnN0b3JlIDcKbG9hZCA1CmxvYWQgNgpsb2FkIDcKY2FsbHN1YiBzZXRlbWlzc2lvbnJ1bGVfNQpzdG9yZSA4CmJ5dGVjXzAgLy8gMHgxNTFmN2M3NQpieXRlYyA0IC8vIDB4MDAKaW50Y18wIC8vIDAKbG9hZCA4CnNldGJpdApjb25jYXQKbG9nCmludGNfMSAvLyAxCnJldHVybgptYWluX2w5Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIGdldGVtaXNzaW9ucnVsZV80CnN0b3JlIDAKYnl0ZWNfMCAvLyAweDE1MWY3Yzc1CmxvYWQgMApjb25jYXQKbG9nCmludGNfMSAvLyAxCnJldHVybgptYWluX2wxMDoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQpibnogbWFpbl9sMTYKdHhuIE9uQ29tcGxldGlvbgppbnRjXzEgLy8gT3B0SW4KPT0KYm56IG1haW5fbDE1CnR4biBPbkNvbXBsZXRpb24KaW50Y18yIC8vIFVwZGF0ZUFwcGxpY2F0aW9uCj09CmJueiBtYWluX2wxNAplcnIKbWFpbl9sMTQ6CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CmFzc2VydApjYWxsc3ViIHVwZGF0ZV8yCmludGNfMSAvLyAxCnJldHVybgptYWluX2wxNToKdHhuIEFwcGxpY2F0aW9uSUQKaW50Y18wIC8vIDAKIT0KYXNzZXJ0CmNhbGxzdWIgb3B0aW5fMwppbnRjXzEgLy8gMQpyZXR1cm4KbWFpbl9sMTY6CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCj09CmFzc2VydApjYWxsc3ViIGNyZWF0ZV8wCmludGNfMSAvLyAxCnJldHVybgoKLy8gY3JlYXRlCmNyZWF0ZV8wOgpieXRlY18xIC8vICJlbWlzc2lvbl9wYXJhbWV0ZXIiCnB1c2hieXRlcyAweCAvLyAiIgphcHBfZ2xvYmFsX3B1dApieXRlY18yIC8vICJlbWlzc2lvbl9tYXgiCmludGNfMCAvLyAwCmFwcF9nbG9iYWxfcHV0CmJ5dGVjXzMgLy8gImVtaXNzaW9uX21pbiIKaW50Y18wIC8vIDAKYXBwX2dsb2JhbF9wdXQKcmV0c3ViCgovLyBhdXRoX29ubHkKYXV0aG9ubHlfMToKZ2xvYmFsIENyZWF0b3JBZGRyZXNzCj09CnJldHN1YgoKLy8gdXBkYXRlCnVwZGF0ZV8yOgp0eG4gU2VuZGVyCmNhbGxzdWIgYXV0aG9ubHlfMQovLyB1bmF1dGhvcml6ZWQKYXNzZXJ0CmludGNfMSAvLyAxCnJldHVybgoKLy8gb3B0X2luCm9wdGluXzM6CmludGNfMSAvLyAxCnJldHVybgoKLy8gZ2V0X2VtaXNzaW9uX3J1bGUKZ2V0ZW1pc3Npb25ydWxlXzQ6CmJ5dGVjXzIgLy8gImVtaXNzaW9uX21heCIKYXBwX2dsb2JhbF9nZXQKc3RvcmUgMQpieXRlY18zIC8vICJlbWlzc2lvbl9taW4iCmFwcF9nbG9iYWxfZ2V0CnN0b3JlIDIKYnl0ZWNfMSAvLyAiZW1pc3Npb25fcGFyYW1ldGVyIgphcHBfZ2xvYmFsX2dldApzdG9yZSAzCmxvYWQgMwpsZW4KaXRvYgpleHRyYWN0IDYgMApsb2FkIDMKY29uY2F0CnN0b3JlIDMKbG9hZCAzCnN0b3JlIDQKcHVzaGludCAxOCAvLyAxOAppdG9iCmV4dHJhY3QgNiAwCmxvYWQgMQppdG9iCmNvbmNhdApsb2FkIDIKaXRvYgpjb25jYXQKbG9hZCA0CmNvbmNhdApyZXRzdWIKCi8vIHNldF9lbWlzc2lvbl9ydWxlCnNldGVtaXNzaW9ucnVsZV81OgpzdG9yZSAxMQpzdG9yZSAxMApzdG9yZSA5CmJ5dGVjXzEgLy8gImVtaXNzaW9uX3BhcmFtZXRlciIKbG9hZCA5CmV4dHJhY3QgMiAwCmFwcF9nbG9iYWxfcHV0CmJ5dGVjXzIgLy8gImVtaXNzaW9uX21heCIKbG9hZCAxMAphcHBfZ2xvYmFsX3B1dApieXRlY18zIC8vICJlbWlzc2lvbl9taW4iCmxvYWQgMTEKYXBwX2dsb2JhbF9wdXQKaW50Y18xIC8vIDEKcmV0c3ViCgovLyBpc19idXNpbmVzc19jb21wbGlhbnQKaXNidXNpbmVzc2NvbXBsaWFudF82OgpzdG9yZSAxNgpzdG9yZSAxNQpieXRlY18xIC8vICJlbWlzc2lvbl9wYXJhbWV0ZXIiCmFwcF9nbG9iYWxfZ2V0CmxvYWQgMTUKZXh0cmFjdCAyIDAKPT0KLy8gRW1pc3Npb24gUGFyYW1ldGVyIGdpdmVuIGlzIG5vdCBjb3JyZWN0IGZvciB0aGUgYXBwIGJlaW5nIHVzZWQhCmFzc2VydApsb2FkIDE2CmJ5dGVjXzMgLy8gImVtaXNzaW9uX21pbiIKYXBwX2dsb2JhbF9nZXQKPj0KLy8gRW1pc3Npb24gdmFsdWUgaXMgbGVzc2VyIHRoYW4gbWluIGNvbmZpZ3VyZWQKYXNzZXJ0CmxvYWQgMTYKYnl0ZWNfMiAvLyAiZW1pc3Npb25fbWF4IgphcHBfZ2xvYmFsX2dldAo8PQpibnogaXNidXNpbmVzc2NvbXBsaWFudF82X2wyCmludGNfMCAvLyAwCnN0b3JlIDE3CmIgaXNidXNpbmVzc2NvbXBsaWFudF82X2wzCmlzYnVzaW5lc3Njb21wbGlhbnRfNl9sMjoKaW50Y18xIC8vIDEKc3RvcmUgMTcKaXNidXNpbmVzc2NvbXBsaWFudF82X2wzOgpsb2FkIDE3CnJldHN1YgoKLy8gY3JlYXRlX2NvbXBsaWFuY2VfbmZ0CmNyZWF0ZWNvbXBsaWFuY2VuZnRfNzoKc3RvcmUgMjAKaXR4bl9iZWdpbgppbnRjXzAgLy8gMAppdHhuX2ZpZWxkIEZlZQpwdXNoaW50IDMgLy8gYWNmZwppdHhuX2ZpZWxkIFR5cGVFbnVtCmludGNfMSAvLyAxCml0eG5fZmllbGQgQ29uZmlnQXNzZXRUb3RhbAppbnRjXzAgLy8gMAppdHhuX2ZpZWxkIENvbmZpZ0Fzc2V0RGVjaW1hbHMKaW50Y18xIC8vIDEKaXR4bl9maWVsZCBDb25maWdBc3NldERlZmF1bHRGcm96ZW4KcHVzaGJ5dGVzIDB4NTMyZDQxNTM0MSAvLyAiUy1BU0EiCml0eG5fZmllbGQgQ29uZmlnQXNzZXRVbml0TmFtZQpwdXNoYnl0ZXMgMHg1MzRkNDE1MjU0MmQ0MTUzNDEgLy8gIlNNQVJULUFTQSIKaXR4bl9maWVsZCBDb25maWdBc3NldE5hbWUKcHVzaGJ5dGVzIDB4Njg3NDc0NzAzYTJmMmY3Mzc3NjE3Mzc0Njk2YjY3NzU2OTY0NjUyZTYzNmY2ZDNmNzE3NTY1NzI3OTNkNjE3MzYxMmQ2NDY1NmQ2ZjMwMzEgLy8gImh0dHA6Ly9zd2FzdGlrZ3VpZGUuY29tP3F1ZXJ5PWFzYS1kZW1vMDEiCml0eG5fZmllbGQgQ29uZmlnQXNzZXRVUkwKbG9hZCAyMAppdHhuX2ZpZWxkIENvbmZpZ0Fzc2V0TWFuYWdlcgpsb2FkIDIwCml0eG5fZmllbGQgQ29uZmlnQXNzZXRSZXNlcnZlCmxvYWQgMjAKaXR4bl9maWVsZCBDb25maWdBc3NldEZyZWV6ZQpsb2FkIDIwCml0eG5fZmllbGQgQ29uZmlnQXNzZXRDbGF3YmFjawppdHhuX3N1Ym1pdAppdHhuIENyZWF0ZWRBc3NldElECnJldHN1YgoKLy8gYXBwX29wdF9pbnRvX2Fzc2V0CmFwcG9wdGludG9hc3NldF84OgpzdG9yZSAyMQppdHhuX2JlZ2luCmludGNfMCAvLyAwCml0eG5fZmllbGQgRmVlCmludGNfMiAvLyBheGZlcgppdHhuX2ZpZWxkIFR5cGVFbnVtCmxvYWQgMjEKaXR4bl9maWVsZCBYZmVyQXNzZXQKaW50Y18xIC8vIDEKaXR4bl9maWVsZCBBc3NldEFtb3VudApnbG9iYWwgQ3VycmVudEFwcGxpY2F0aW9uQWRkcmVzcwppdHhuX2ZpZWxkIFNlbmRlcgpnbG9iYWwgQ3VycmVudEFwcGxpY2F0aW9uQWRkcmVzcwppdHhuX2ZpZWxkIEFzc2V0UmVjZWl2ZXIKaXR4bl9zdWJtaXQKcmV0c3ViCgovLyBpc3N1ZV9jb21wbGlhbmNlX25mdAppc3N1ZWNvbXBsaWFuY2VuZnRfOToKY2FsbHN1YiBjcmVhdGVjb21wbGlhbmNlbmZ0XzcKc3RvcmUgMTkKbG9hZCAxOQpjYWxsc3ViIGFwcG9wdGludG9hc3NldF84CmxvYWQgMTkKcmV0c3Vi",
+        "clear": "I3ByYWdtYSB2ZXJzaW9uIDcKcHVzaGludCAwIC8vIDAKcmV0dXJu"
+    },
+    "schema": {
+        "local": {
+            "declared": {},
+            "reserved": {}
+        },
+        "global": {
+            "declared": {
+                "emission_parameter": {
+                    "type": "bytes",
+                    "key": "emission_parameter",
+                    "descr": "Emission Parameter to keep track of"
+                },
+                "emission_max": {
+                    "type": "uint64",
+                    "key": "emission_max",
+                    "descr": "Max value of the emission parameter"
+                },
+                "emission_min": {
+                    "type": "uint64",
+                    "key": "emission_min",
+                    "descr": "Min value of the emission parameter"
+                }
+            },
+            "reserved": {}
+        }
+    },
+    "contract": {
+        "name": "ComplianceContract",
+        "methods": [
+            {
+                "name": "get_emission_rule",
+                "args": [],
+                "returns": {
+                    "type": "(string,uint64,uint64)"
+                },
+                "desc": "Returns the rules defined by the regulator for the given emission SC"
+            },
+            {
+                "name": "set_emission_rule",
+                "args": [
+                    {
+                        "type": "string",
+                        "name": "emission_parameter"
+                    },
+                    {
+                        "type": "uint64",
+                        "name": "emission_max"
+                    },
+                    {
+                        "type": "uint64",
+                        "name": "emission_min"
+                    }
+                ],
+                "returns": {
+                    "type": "bool"
+                },
+                "desc": "Sets the rules defined by the regulator for the given emission"
+            },
+            {
+                "name": "is_business_compliant",
+                "args": [
+                    {
+                        "type": "string",
+                        "name": "emission_parameter"
+                    },
+                    {
+                        "type": "uint64",
+                        "name": "emission_value"
+                    }
+                ],
+                "returns": {
+                    "type": "bool"
+                },
+                "desc": "Returns true/false based on whether the business is compliant to the emissions value or not"
+            },
+            {
+                "name": "issue_compliance_nft",
+                "args": [
+                    {
+                        "type": "address",
+                        "name": "business_address"
+                    }
+                ],
+                "returns": {
+                    "type": "uint64"
+                },
+                "desc": "Creates the compliance NFT for the business via the Algorand SC"
+            }
+        ],
+        "networks": {},
+        "desc": "\n    Compliance Contract for storing business' compliance analysis on chain\n    and creating/minting NFTs for businesses based on the rules defined by the regulators.\n    "
+    }
+}
