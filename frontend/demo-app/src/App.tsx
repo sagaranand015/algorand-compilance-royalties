@@ -141,10 +141,6 @@ function App() {
       message: 'Sign me with Wallet Connect to opt into the compliance NFT',
     }]
     const request = formatJsonRpcRequest("algo_signTxn", [txnObj]);
-    // await connector.sendCustomRequest(request).then(resp => {
-    //   console.log("------- signed txn response: ", resp);
-    //   connector.sendTransaction()
-    // });
     const result: Array<string> = await connector.sendCustomRequest(request);
     console.log("========== result is: ", result);
     const decodedResult = result.map(element => {
@@ -157,8 +153,39 @@ function App() {
     let confirmedTxn = await algosdk.waitForConfirmation(client, opttx.txId, 4);
     //Get the completed Transaction
     console.log("Transaction " + opttx.txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
+  }
 
+  async function OptInRewardToken() {
+    console.log("==== opting into 1 Reward Token...");
 
+    let params = await client.getTransactionParams().do();
+    let biz_sender = account;
+    const optInTxn = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+      amount: 0,
+      from: account,
+      to: account,
+      assetIndex: 120027897,
+      suggestedParams: params,
+    });
+
+    const encodedTxn = Buffer.from(algosdk.encodeUnsignedTransaction(optInTxn)).toString("base64");
+    const txnObj = [{
+      txn: encodedTxn,
+      message: 'Sign me with Wallet Connect to opt into the compliance NFT',
+    }]
+    const request = formatJsonRpcRequest("algo_signTxn", [txnObj]);
+    const result: Array<string> = await connector.sendCustomRequest(request);
+    console.log("========== result is: ", result);
+    const decodedResult = result.map(element => {
+      return new Uint8Array(Buffer.from(element, "base64"));
+    });
+    console.log("========= decodedResult of optIn: ", decodedResult, typeof (decodedResult));
+
+    let opttx = (await client.sendRawTransaction(decodedResult[0]).do());
+    // Wait for confirmation
+    let confirmedTxn = await algosdk.waitForConfirmation(client, opttx.txId, 4);
+    //Get the completed Transaction
+    console.log("Transaction " + opttx.txId + " confirmed in round " + confirmedTxn["confirmed-round"]);
   }
 
   // async function GetAssetTransfer() {
@@ -204,7 +231,7 @@ function App() {
         <button onClick={() => DisconnectWallet()}>DisConnect Wallet</button>
         <button onClick={() => GetAccountBalance()}>Get Account Balance</button>
         <button onClick={() => OptIntoComplianceNft()}>Opt Into Compliance NFT</button>
-        {/* <button onClick={() => GetAssetTransfer()}>Get Compliance NFT</button> */}
+        <button onClick={() => OptInRewardToken()}>Opt Into Reward Token</button>
       </header>
     </div>
   );

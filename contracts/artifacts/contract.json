@@ -76,6 +76,31 @@
                 "type": "uint64"
             },
             "desc": "Creates the compliance NFT for the business via the Algorand SC"
+        },
+        {
+            "name": "create_reward_token_supply",
+            "args": [],
+            "returns": {
+                "type": "uint64"
+            },
+            "desc": "Create the Reward tokens in supply, to be done by the application's creator itself"
+        },
+        {
+            "name": "allocate_reward_token_to_business",
+            "args": [
+                {
+                    "type": "address",
+                    "name": "business_address"
+                },
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
+                }
+            ],
+            "returns": {
+                "type": "uint64"
+            },
+            "desc": "Creates the compliance NFT for the business via the Algorand SC"
         }
     ],
     "networks": {},

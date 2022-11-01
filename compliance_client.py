@@ -149,7 +149,9 @@ class ComplianceClient:
         print("======== res.tx_value is: ", res.tx_info)
         return res
 
-    def transfer_compliance_token_to_business(self, business_address: str, asset_id: int):
+    def transfer_compliance_token_to_business(
+        self, business_address: str, asset_id: int
+    ):
         """
         This functions mints the compliance NFT with the business address as the owner of the NFT,
         for being in compliance with the emission control set by the regulator
@@ -164,7 +166,49 @@ class ComplianceClient:
             asset_id=asset_id,
             suggested_params=sp,
             accounts=[business_address],
-            foreign_assets=[asset_id]
+            foreign_assets=[asset_id],
+        )
+        print("======== res is: ", res)
+        print("======== res.return_value is: ", res.return_value)
+        print("======== res.raw_value is: ", res.raw_value)
+        print("======== res.tx_id is: ", res.tx_id)
+        print("======== res.tx_value is: ", res.tx_info)
+        return res
+
+    def create_reward_tokens_supply(self):
+        sp = self._algo_client.suggested_params()
+        sp.flat_fee = True
+        sp.fee = 5000  # cover this and 1 inner transaction
+
+        res = self._algo_app.call(
+            ComplianceContract.create_reward_token_supply,
+            suggested_params=sp,
+        )
+        print("======== res is: ", res)
+        print("======== res.return_value is: ", res.return_value)
+        print("======== res.raw_value is: ", res.raw_value)
+        print("======== res.tx_id is: ", res.tx_id)
+        print("======== res.tx_value is: ", res.tx_info)
+        return res
+
+    def transfer_reward_token_to_business(
+        self, business_address: str, asset_id: int
+    ):
+        """
+        This functions mints the compliance NFT with the business address as the owner of the NFT,
+        for being in compliance with the emission control set by the regulator
+        """
+        sp = self._algo_client.suggested_params()
+        sp.flat_fee = True
+        sp.fee = 5000  # cover this and 1 inner transaction
+
+        res = self._algo_app.call(
+            ComplianceContract.allocate_reward_token_to_business,
+            business_address=business_address,
+            asset_id=asset_id,
+            suggested_params=sp,
+            accounts=[business_address],
+            foreign_assets=[asset_id],
         )
         print("======== res is: ", res)
         print("======== res.return_value is: ", res.return_value)
@@ -181,12 +225,15 @@ class ComplianceClient:
         account_info = self._algo_client.account_info(account)
         idx = 0
         # print("========= account info: ", account_info)
-        for my_account_info in account_info['assets']:
-            scrutinized_asset = account_info['assets'][idx]
+        for my_account_info in account_info["assets"]:
+            scrutinized_asset = account_info["assets"][idx]
             idx = idx + 1
             # print("========= asset info: ", account_info['assets'])
-            print("========= created asset info: ", account_info['created-assets'])
-            if scrutinized_asset['asset-id'] == asset_id:
+            print(
+                "========= created asset info: ",
+                account_info["created-assets"],
+            )
+            if scrutinized_asset["asset-id"] == asset_id:
                 # print(json.dumps(scrutinized_asset))
                 # print("Asset ID: {}".format(scrutinized_asset['asset-id']))
                 # print(json.dumps(scrutinized_asset, indent=4))
@@ -195,8 +242,8 @@ class ComplianceClient:
 
 if __name__ == "__main__":
     print("Starting deploy of the Compliance App(SC) on Algorand...")
-    # appId:120023262
-    c = ComplianceClient(120023262)
+    # appId:120027745
+    c = ComplianceClient(120027745)
     c.get_application_state()
     c.get_application_address()
     # c.get_emissions_rule()
@@ -217,12 +264,12 @@ if __name__ == "__main__":
     #     import traceback
     #     traceback.print_exc()
 
-    try:
-        c.transfer_compliance_token_to_business("SZ3K22H6MZ3A3ORYIVTAYMQMMBWVFOMJWXR3QCODNMJBQRIKBXN5PXX6AI", 120023374)
-    except Exception as e:
-        print("========= EXCEPTION IN TRANSFERRING TO BUSINESS...", e)
-        import traceback
-        traceback.print_exc()
+    # try:
+    #     c.transfer_compliance_token_to_business("SZ3K22H6MZ3A3ORYIVTAYMQMMBWVFOMJWXR3QCODNMJBQRIKBXN5PXX6AI", 120023374)
+    # except Exception as e:
+    #     print("========= EXCEPTION IN TRANSFERRING TO BUSINESS...", e)
+    #     import traceback
+    #     traceback.print_exc()
 
     # try:
     #     c.print_asset_holding("SZ3K22H6MZ3A3ORYIVTAYMQMMBWVFOMJWXR3QCODNMJBQRIKBXN5PXX6AI", 120019312)
@@ -231,3 +278,17 @@ if __name__ == "__main__":
     #     import traceback
     #     traceback.print_exc()
 
+    """
+    Reward Token interactions below!
+    """
+    # c.create_reward_tokens_supply()
+    try:
+        c.transfer_reward_token_to_business(
+            "C25IIJNW7VRRPNPEBKNBU2TR4SGIIH22EGYGE6FWXLGOV4GDQMN5VGTWB4",
+            120027897,
+        )
+    except Exception as e:
+        print("========= EXCEPTION IN TRANSFERRING TO BUSINESS...", e)
+        import traceback
+
+        traceback.print_exc()
