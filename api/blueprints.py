@@ -4,6 +4,7 @@ from flask import Blueprint
 from .health import get_health_status
 from .user import new_user_registration
 from .regulator import create_emission_control
+from .business import check_business_compliance
 
 
 """
@@ -42,6 +43,10 @@ def get_business_blueprint():
     @biz_blueprint.route("/register", methods=["POST"])
     def _register_user():
         return new_user_registration()
+
+    @biz_blueprint.route("/compliant", methods=["POST"])
+    def _biz_comliant_check():
+        return check_business_compliance()
 
     return biz_blueprint
 

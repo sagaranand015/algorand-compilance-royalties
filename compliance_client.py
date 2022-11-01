@@ -115,15 +115,15 @@ class ComplianceClient:
         print("======== res.tx_value is: ", res.tx_info)
         return res
 
-    def is_business_compliant(self):
+    def is_business_compliant(self, emission_param: str, emission_val: str):
         sp = self._algo_client.suggested_params()
         sp.flat_fee = True
         sp.fee = 2000  # cover this and 1 inner transaction
 
         res = self._algo_app.call(
             ComplianceContract.is_business_compliant,
-            emission_parameter="Co2 Emission Level",
-            emission_value=80,
+            emission_parameter=emission_param,
+            emission_value=int(emission_val),
             suggested_params=sp,
         )
         print("======== res is: ", res)
@@ -249,11 +249,11 @@ class ComplianceClient:
 if __name__ == "__main__":
     print("Starting deploy of the Compliance App(SC) on Algorand...")
     # appId:120027745
-    c = ComplianceClient(120027745)
+    c = ComplianceClient(120076235)
     c.get_application_state()
     c.get_application_address()
-    # c.get_emissions_rule()
-    # print("================ CHANGE =====================")
+    c.get_emissions_rule()
+    print("================ CHANGE =====================")
     # c.set_emissions_rule()
     # print("================ CHANGE =====================")
     # c.get_emissions_rule()
@@ -284,17 +284,17 @@ if __name__ == "__main__":
     #     import traceback
     #     traceback.print_exc()
 
-    """
-    Reward Token interactions below!
-    """
-    # c.create_reward_tokens_supply()
-    try:
-        c.transfer_reward_token_to_business(
-            "C25IIJNW7VRRPNPEBKNBU2TR4SGIIH22EGYGE6FWXLGOV4GDQMN5VGTWB4",
-            120027897,
-        )
-    except Exception as e:
-        print("========= EXCEPTION IN TRANSFERRING TO BUSINESS...", e)
-        import traceback
-
-        traceback.print_exc()
+    # """
+    # Reward Token interactions below!
+    # """
+    # # c.create_reward_tokens_supply()
+    # try:
+    #     c.transfer_reward_token_to_business(
+    #         "C25IIJNW7VRRPNPEBKNBU2TR4SGIIH22EGYGE6FWXLGOV4GDQMN5VGTWB4",
+    #         120027897,
+    #     )
+    # except Exception as e:
+    #     print("========= EXCEPTION IN TRANSFERRING TO BUSINESS...", e)
+    #     import traceback
+    #
+    #     traceback.print_exc()

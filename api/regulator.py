@@ -9,7 +9,6 @@ from utils.utils import (
     get_regulator_data_from_storage,
     update_regulator_data_in_storage,
 )
-from utils.constants import REGULATOR_FILE
 
 from compliance_client import ComplianceClient
 
