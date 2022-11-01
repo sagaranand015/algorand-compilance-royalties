@@ -1,8 +1,10 @@
 import flask
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import os
 
 from api.blueprints import get_all_blueprints
+from utils.constants import AUTH_FILE, REGULATOR_FILE, BUSINESS_FILE
 
 
 def create_server():
@@ -20,6 +22,13 @@ def create_server():
 
 if __name__ == "__main__":
     server = create_server()
+    with open(AUTH_FILE, "w") as fp:
+        fp.write("{}")
+    with open(REGULATOR_FILE, "w") as fp1:
+        fp1.write("{}")
+    with open(BUSINESS_FILE, "w") as fp2:
+        fp2.write("{}")
+
     server.run(
         host="0.0.0.0",
         port=8080,
