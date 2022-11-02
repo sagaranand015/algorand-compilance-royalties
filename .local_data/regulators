@@ -1,1 +1,1 @@
-{}
+{"regulator_address": [{"app_id": 120219337, "app_address": "VDSB4W44IG7D7BNZT4SLIXH55TIBSFAAVNTQZTGO2LYVXGNTLU3MJDU5YA", "data": {"emission_param": "NO2", "emission_desc": "CO2 Emission description", "emission_max": "500"}}, {"app_id": 120221108, "app_address": "Z6J7VAPPT5BRBWTPSFXAJ3MG4W4RZCYBXZ7NN3IDM2PYMQW3MWRITMI2JI", "data": {"emission_param": "CO2", "emission_desc": "CO2 Emission description", "emission_max": "100"}}]}
