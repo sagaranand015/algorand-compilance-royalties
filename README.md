@@ -18,3 +18,5 @@ These are users of the platforms that can hook up their emissions data via:
 3. Manual csv upload etc.
 and have their analysis done on the Algorand Blockchain to determine their compliance status. These business can then check for their eligibility for their compliance NFTs, claim these NFTs and have reward tokens allocated for them for sticking to the compliance demands of their governing land. 
 
+#### DEMO
+Demo is available here: https://youtu.be/0gfPZ5fAyxI
