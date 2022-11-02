@@ -56,7 +56,7 @@ export default function Layout({ children }) {
             <footer>
                 <div className="mt-8 mb-6 border border-grey-600"></div>
                 <div className="flex justify-between">
-                    <p>Life is in this moment. There is no other meaning of life.</p>
+                    <p>The Climate Is Changing. So Should We.</p>
                 </div>
             </footer>
         </div>
