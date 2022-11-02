@@ -100,7 +100,7 @@ def get_all_regulator_data() -> typing.Dict:
 
 
 def update_regulator_data_in_storage(
-    regulator_address: str, data: typing.Dict
+    regulator_address: str, data: typing.Dict, new_data: bool = False
 ):
     """
     Updates or Adds the data given for the regulator address in the storage file
@@ -111,11 +111,20 @@ def update_regulator_data_in_storage(
     if reg_data is None:
         all_data[regulator_address] = [data]
     else:
-        reg_data.append(data)
-        all_data[regulator_address] = reg_data
+        if new_data:
+            reg_data.append(data)
+            all_data[regulator_address] = reg_data
+        else:
+            new_data = []
+            for reg_d in reg_data:
+                if reg_d["app_id"] == data["app_id"]:
+                    new_data.append(data)
+                else:
+                    new_data.append(reg_d)
+            all_data[regulator_address] = new_data
 
     print("==== final all_data is: ", all_data)
-    print("==== final reg_data is: ", reg_data)
+    # print("==== final reg_data, new_data is: ", reg_data, new_data)
     with open(REGULATOR_FILE, "w") as fp:
         json.dump(all_data, fp)
 

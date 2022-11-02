@@ -35,12 +35,14 @@ def get_all_emission_controls():
         all_reg_data = get_regulator_data_from_storage(reg_addr)
         all_apps = []
         for d in all_reg_data:
-            all_apps.append({
-                'app_id': d['app_id'],
-                'emission_param': d['data']['emission_param'],
-                'emission_desc': d['data']['emission_desc'],
-                'emission_max': d['data']['emission_max'],
-            })
+            all_apps.append(
+                {
+                    "app_id": d["app_id"],
+                    "emission_param": d["data"]["emission_param"],
+                    "emission_desc": d["data"]["emission_desc"],
+                    "emission_max": d["data"]["emission_max"],
+                }
+            )
         return (
             jsonify(dict(status=True, message="All Good!", controls=all_apps)),
             HTTPStatus.OK,
@@ -92,17 +94,25 @@ def create_emission_control():
                 if d["data"]["emission_param"] == emission_param:
                     app_id = d.get("app_id")
                     comp_client = ComplianceClient(app_id)
+                    new_reg_data = {
+                        "app_id": comp_client.get_app_id(),
+                        "app_address": comp_client.get_app_address(),
+                        "data": req,
+                    }
+                    update_regulator_data_in_storage(reg_addr, new_reg_data)
                     is_new_emission = False
                     break
 
         if is_new_emission:
             comp_client = ComplianceClient()
-            reg_data = {
+            new_reg_data = {
                 "app_id": comp_client.get_app_id(),
                 "app_address": comp_client.get_app_address(),
                 "data": req,
             }
-            update_regulator_data_in_storage(reg_addr, reg_data)
+            update_regulator_data_in_storage(
+                reg_addr, new_reg_data, new_data=True
+            )
 
         final_app_id = comp_client.get_app_id()
         final_app_addr = comp_client.get_app_address()
