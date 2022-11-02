@@ -6,11 +6,16 @@ import QRCodeModal from "algorand-walletconnect-qrcode-modal";
 
 const AuthContext = React.createContext();
 
+export const connector = new WalletConnect({
+    bridge: "https://bridge.walletconnect.org", // Required
+    qrcodeModal: QRCodeModal,
+});
+
 function AuthProvider(props) {
-    const connector = new WalletConnect({
-        bridge: "https://bridge.walletconnect.org", // Required
-        qrcodeModal: QRCodeModal,
-    });
+    // const connector = new WalletConnect({
+    //     bridge: "https://bridge.walletconnect.org", // Required
+    //     qrcodeModal: QRCodeModal,
+    // });
 
     const [currentAccount, setCurrentAccount] = useState(null)
 

@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Compliance Royalties</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/envira.svg" />
       </Head>
 
       <Component {...pageProps} />

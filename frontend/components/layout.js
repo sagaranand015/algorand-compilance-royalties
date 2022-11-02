@@ -35,7 +35,7 @@ export default function Layout({ children }) {
             <div>
                 <header className="flex justify-between mb-6">
                     <div className="flex items-center">
-                        <h3 className="text-xl font-extrabold"><Link href="/">Compliance Royalties</Link></h3>
+                        <p className="text-2xl font-[1100] text-orange-900"><Link href="/">Compliance Royalties</Link></p>
                         {currentAccount && <p className="ml-8 text-gray-600"><Link href="/dashboard">Dashboard</Link></p>}
                     </div>
                     {currentAccount ? (
@@ -54,7 +54,7 @@ export default function Layout({ children }) {
             </div>
 
             <footer>
-                <div className="mt-8 mb-6 border border-grey-600"></div>
+                <div className="mt-10 mb-6 border border-grey-600"></div>
                 <div className="flex justify-between">
                     <p>The Climate Is Changing. So Should We.</p>
                 </div>

@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@json-rpc-tools/utils": "^1.7.6",
     "@walletconnect/client": "^1.8.0",
     "algorand-walletconnect-qrcode-modal": "^1.8.0",
     "algosdk": "^1.22.0",
     "next": "13.0.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-http-client": "^1.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
